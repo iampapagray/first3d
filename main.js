@@ -3,6 +3,11 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+import spaceImg from './space.jpg'
+import jeffImg from './jeff.png'
+import moonImg from './moon.jpg'
+import depthImg from './normal.jpg'
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -59,11 +64,11 @@ function addStar() {
 Array(200).fill().forEach(addStar);
 
 // add texture to space
-const spaceTexture = new THREE.TextureLoader().load("./space.jpg"); //could use a callback to notify when loaded
+const spaceTexture = new THREE.TextureLoader().load(spaceImg); //could use a callback to notify when loaded
 scene.background = spaceTexture;
 
 // texture mapping - creating 3D from 2D images
-const jeffTexture = new THREE.TextureLoader().load("./jeff.png");
+const jeffTexture = new THREE.TextureLoader().load(jeffImg);
 const jeff = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
   new THREE.MeshBasicMaterial({ map: jeffTexture })
@@ -71,8 +76,8 @@ const jeff = new THREE.Mesh(
 scene.add(jeff);
 
 // moon
-const moonTexture = new THREE.TextureLoader().load("./moon.jpg");
-const normalTexture = new THREE.TextureLoader().load("./normal.jpg");
+const moonTexture = new THREE.TextureLoader().load(moonImg);
+const normalTexture = new THREE.TextureLoader().load(depthImg);
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
   new THREE.MeshStandardMaterial({
