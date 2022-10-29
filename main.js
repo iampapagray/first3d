@@ -3,10 +3,10 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-import spaceImg from './space.jpg'
-import jeffImg from './jeff.png'
-import moonImg from './moon.jpg'
-import depthImg from './normal.jpg'
+import spaceImg from "./space.jpg";
+import devImg from "./memoji.png";
+import moonImg from "./moon.jpg";
+import depthImg from "./normal.jpg";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -26,9 +26,10 @@ camera.position.setZ(30);
 ren.render(scene, camera);
 
 // shape
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-// const material = new THREE.MeshBasicMaterial({ color: 0xFF6347, wireframe: true }); //wrapper for shape, no need for light
-const material = new THREE.MeshStandardMaterial({ color: 0xff6347 }); //wrapper for shape, needs light
+// const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+const material = new THREE.MeshBasicMaterial({ color: 0xFF6347, wireframe: true }); //wrapper for shape, no need for light
+// const material = new THREE.MeshStandardMaterial({ color: 0xff6347 }); //wrapper for shape, needs light
 const torus = new THREE.Mesh(geometry, material); // create mesh obj
 
 scene.add(torus);
@@ -68,12 +69,12 @@ const spaceTexture = new THREE.TextureLoader().load(spaceImg); //could use a cal
 scene.background = spaceTexture;
 
 // texture mapping - creating 3D from 2D images
-const jeffTexture = new THREE.TextureLoader().load(jeffImg);
-const jeff = new THREE.Mesh(
+const devTexture = new THREE.TextureLoader().load(devImg);
+const cube = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
-  new THREE.MeshBasicMaterial({ map: jeffTexture })
+  new THREE.MeshBasicMaterial({ map: devTexture })
 );
-scene.add(jeff);
+scene.add(cube);
 
 // moon
 const moonTexture = new THREE.TextureLoader().load(moonImg);
@@ -97,8 +98,8 @@ function moveCamera() {
   moon.rotation.y += 0.075;
   moon.rotation.z += 0.05;
 
-  jeff.rotation.y += 0.01;
-  jeff.rotation.z += 0.01;
+  cube.rotation.y += 0.01;
+  cube.rotation.z += 0.01;
 
   camera.position.z = t * -0.01;
   camera.position.x = t * -0.0002;
