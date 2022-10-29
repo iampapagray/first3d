@@ -1,7 +1,7 @@
 import "./style.css";
 
 import * as THREE from "three";
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -30,7 +30,7 @@ scene.add(torus);
 
 // Light bulb for Standard material
 const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(5,5,5);
+pointLight.position.set(5, 5, 5);
 
 // for whole scene
 const ambientLight = new THREE.AmbientLight(0xffffff);
@@ -46,10 +46,12 @@ const controls = new OrbitControls(camera, ren.domElement);
 function addStar() {
   const shape = new THREE.SphereGeometry(0.25, 24, 24);
   const wrapper = new THREE.MeshStandardMaterial({ color: 0xffffff });
-  const star = new THREE.Mesh(shape, wrapper); 
+  const star = new THREE.Mesh(shape, wrapper);
 
   //random position for star
-  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+  const [x, y, z] = Array(3)
+    .fill()
+    .map(() => THREE.MathUtils.randFloatSpread(100));
   star.position.set(x, y, z);
 
   scene.add(star);
@@ -57,32 +59,31 @@ function addStar() {
 Array(200).fill().forEach(addStar);
 
 // add texture to space
-const spaceTexture = new THREE.TextureLoader().load('space.jpg'); //could use a callback to notify when loaded
+const spaceTexture = new THREE.TextureLoader().load("./space.jpg"); //could use a callback to notify when loaded
 scene.background = spaceTexture;
 
 // texture mapping - creating 3D from 2D images
-const jeffTexture = new THREE.TextureLoader().load('jeff.png');
+const jeffTexture = new THREE.TextureLoader().load("./jeff.png");
 const jeff = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
-  new THREE.MeshBasicMaterial({ map: jeffTexture }),
+  new THREE.MeshBasicMaterial({ map: jeffTexture })
 );
-scene.add(jeff)
+scene.add(jeff);
 
 // moon
-const moonTexture = new THREE.TextureLoader().load("moon.jpg");
-const normalTexture = new THREE.TextureLoader().load("normal.jpg");
+const moonTexture = new THREE.TextureLoader().load("./moon.jpg");
+const normalTexture = new THREE.TextureLoader().load("./normal.jpg");
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
   new THREE.MeshStandardMaterial({
     map: moonTexture,
-    normalMap: normalTexture
+    normalMap: normalTexture,
   })
 );
 scene.add(moon);
 
 moon.position.z = 30;
 moon.position.setX(-10);
-
 
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
@@ -98,7 +99,7 @@ function moveCamera() {
   camera.position.x = t * -0.0002;
   camera.position.y = t * -0.0002;
 }
-document.body.onscroll = moveCamera
+document.body.onscroll = moveCamera;
 
 function animate() {
   requestAnimationFrame(animate);
